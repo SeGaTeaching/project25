@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Is it Wednesday?</title>
+    <style>
+        body {
+            display: grid;
+            place-items: center;
+            font-family: sans-serif;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 6rem;
+        }
+
+        p {
+            font-size: 1.5rem;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>Is it Wednesday?</p>
+        <h1>
+            {% if is_wednesday %}
+            YES
+            {% else %}
+            NO
+            {% endif %}
+        </h1>
+        <p>
+            today is {{ weekday }}, {{ today|date:"d.m.Y" }}
+        </p>
+    </div>
+</body>
+</html>
