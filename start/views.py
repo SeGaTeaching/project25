@@ -94,6 +94,7 @@ def req_obj(request):
     # --- 3. GET-Parameter ---
     html_lines.append("<h2>GET-Parameter (Query String)</h2>")
     if request.GET:
+        html_lines.append(f"Query Dictionary: {escape(request.GET)}")
         get_params = []
         for key, value in request.GET.items():
             get_params.append(f"{escape(key)}: {escape(value)}")

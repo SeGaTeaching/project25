@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     # Custom Apps
     'start',
     'wednesday',
+    'get_examples',
     
     # Default Apps
     'django.contrib.admin',
