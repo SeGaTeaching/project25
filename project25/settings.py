@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'start',
     'wednesday',
     'get_examples',
+    'models_examples',
     
     # Default Apps
     'django.contrib.admin',

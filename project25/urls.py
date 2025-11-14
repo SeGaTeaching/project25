@@ -23,4 +23,5 @@ urlpatterns = [
     path('isitwednesday/', wednesday.views.is_wednesday, name="is_wednesday"),
     path('', include('start.urls')),
     path('query/', include('get_examples.urls')),
+    path('models/', include('models_examples.urls')),
 ]
