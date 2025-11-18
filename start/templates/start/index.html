@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Is it Wednesday?</title>
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Home</title>
     <style>
         body {
             display: grid;
@@ -28,18 +29,7 @@
 </head>
 <body>
     <div class="container">
-        <p>Is it Wednesday?</p>
-        <h1>
-            {% if is_wednesday %}
-            YES
-            {% else %}
-            NO
-            {% endif %}
-        </h1>
-        <p>
-            today is {{ weekday }}, {{ today|date:"d.m.Y" }}
-        </p>
-        <p><a href={% url "start:index" %}>Startseite</a></p>
+        <h1>Heute ist<br>{{ today|date:"l, d.m.Y"}}</h1>
     </div>
 </body>
 </html>

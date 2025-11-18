@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Stuff</title>
+</head>
+<body>
+    <h1>Weather-App</h1>
+    {% if error %}
+    <h2 style='color: red;'>{{ error }}</h2>
+    {% endif %}
+    <form method="GET">
+        {% csrf_token %}
+        <input type="text" name="city" placeholder="Stadt eingeben">
+        <button type="submit">Search</button>
+    </form>
+    {% if weather %}
+    <ul>
+        <li>
+            <h2>{{ weather.city }}</h2>
+            <p>Temperature: {{ weather.temperature }}°C</p>
+            <p>Description: {{ weather.description }}</p>
+            <img src="http://openweathermap.org/img/wn/{{ weather.icon }}@2x.png" alt="Icon">
+        </li>
+    </ul>
+    {% endif %}
+</body>
+</html>

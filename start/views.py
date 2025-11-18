@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.utils.html import escape
+from datetime import datetime
 
 # Create your views here.
 def index(request):
-    request.session['super_test'] = "Hallo ich bin in der Session zu finden (hoffentlich)"
-    request.session['user_id'] = 12345
-    return HttpResponse("<h1>Session-Daten wurden gesetzt!</h1> <a href='/request/'>Jetzt Request-Objekt prüfen</a>")
+    today = datetime.today()
+    
+    return render(request, "start/index.html", {"today": today})
 
 def req_obj(request):
     

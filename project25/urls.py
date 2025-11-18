@@ -24,4 +24,5 @@ urlpatterns = [
     path('', include('start.urls')),
     path('query/', include('get_examples.urls')),
     path('models/', include('models_examples.urls')),
+    path('weather/', include('weather.urls')),
 ]

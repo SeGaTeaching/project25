@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'wednesday',
     'get_examples',
     'models_examples',
+    'models_relations',
+    'weather',
     
     # Default Apps
     'django.contrib.admin',
