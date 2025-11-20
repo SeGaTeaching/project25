@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-header">
+    <h2 style="color: var(--accent-red);">TERMINIERUNG BESTÄTIGEN</h2>
+    <span class="badge" style="background: var(--accent-red); color: white;">DANGER ZONE</span>
+</div>
+
+<div class="retro-form" style="text-align: center;">
+    <p class="intro-text">Sind Sie sicher, dass Sie die Akte von <strong>{{ agent.full_name }}</strong> ({{ agent.get_codename_display }}) unwiderruflich löschen möchten?</p>
+    
+    <p style="color: var(--accent-red); font-weight: bold;">Diese Aktion kann nicht rückgängig gemacht werden.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn-retro danger">JA, LÖSCHEN</button>
+        <a href="{% url 'bia_forms:agent-detail' agent.pk %}" class="btn-retro" style="display:inline-block; margin-top: 10px; text-decoration: none;">ABBRECHEN</a>
+    </form>
+</div>
+{% endblock %}

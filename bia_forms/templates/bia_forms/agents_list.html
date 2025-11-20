@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-header">
+    <h2>Aktives Personalregister</h2>
+    <span class="badge">RESTRICTED ACCESS</span>
+</div>
+
+<p class="intro-text">Liste aller registrierten Feldagenten. Zugriff wird protokolliert.</p>
+
+<div class="retro-form" style="padding: 1rem;">
+    <table style="width: 100%; border-collapse: collapse; color: var(--text-main);">
+        <thead>
+            <tr style="border-bottom: 2px solid var(--accent-green); text-align: left;">
+                <th style="padding: 10px; color: var(--accent-amber);">CODENAME</th>
+                <th style="padding: 10px; color: var(--accent-amber);">NAME</th>
+                <th style="padding: 10px; color: var(--accent-amber);">DIENSTJAHRE</th>
+                <th style="padding: 10px; text-align: right; color: var(--accent-amber);">AKTION</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for agent in agents %}
+            <tr style="border-bottom: 1px solid #333;">
+                <td style="padding: 10px; font-weight: bold; color: var(--accent-green);">
+                    {{ agent.get_codename_display }}
+                </td>
+                <td style="padding: 10px;">{{ agent.full_name }}</td>
+                <td style="padding: 10px;">{{ agent.years_of_experience }}</td>
+                <td style="padding: 10px; text-align: right;">
+                    <a href="{% url 'bia_forms:agent-detail' agent.id %}" class="btn-retro" style="padding: 5px 10px; font-size: 0.8rem; text-decoration: none;">
+                        AKTE ÖFFNEN
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" style="padding: 20px; text-align: center; color: #666;">
+                    Keine aktiven Agenten im System gefunden.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <a href="{% url 'bia_forms:agent-recruit' %}" class="btn-retro" style="display: block; text-align: center; margin-top: 20px; text-decoration: none;">
+        NEUEN AGENTEN REKRUTIEREN
+    </a>
+</div>
+{% endblock %}

@@ -1,0 +1,226 @@
+:root {
+    --bg-color: #0a0a12;
+    --panel-color: #11111a;
+    --text-main: #c0c0c0;
+    --accent-green: #00ff41;
+    --accent-amber: #ffb000;
+    --accent-red: #ff3333;
+    --border-glow: 0 0 10px rgba(0, 255, 65, 0.2);
+    --font-stack: 'Courier New', Courier, monospace;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-stack);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* CRT Scanline Effekt */
+.scanline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: rgba(0, 255, 65, 0.1);
+    animation: scan 6s linear 1;
+    pointer-events: none;
+    z-index: 999;
+}
+
+@keyframes scan {
+    0% { top: -5px; }
+    100% { top: 100vh; }
+}
+
+/* Layout */
+.container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.content-wrapper {
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Header & Nav */
+header {
+    background: var(--panel-color);
+    border-bottom: 2px solid var(--accent-green);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+header h1 {
+    color: var(--accent-green);
+    margin: 0;
+    text-shadow: var(--border-glow);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    padding: 0;
+}
+
+nav a {
+    color: var(--text-main);
+    text-decoration: none;
+    padding: 0.5rem;
+    border: 1px solid transparent;
+    transition: all 0.3s;
+}
+
+nav a:hover {
+    border-color: var(--accent-green);
+    color: var(--accent-green);
+    background: rgba(0, 255, 65, 0.1);
+}
+
+/* Forms Styling */
+.retro-form {
+    background: var(--panel-color);
+    padding: 2rem;
+    border: 1px solid #333;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+.badge {
+    background: var(--accent-green);
+    color: black;
+    padding: 2px 8px;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--accent-amber);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+/* Inputs styling (Alle Input typen) */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="date"],
+input[type="password"],
+select,
+textarea {
+    width: 100%;
+    background: #000;
+    border: 1px solid #444;
+    color: var(--accent-green);
+    padding: 10px;
+    font-family: var(--font-stack);
+    box-sizing: border-box; /* Wichtig damit Padding nicht Breite sprengt */
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent-green);
+    box-shadow: var(--border-glow);
+}
+
+/* Spezifische Inputs */
+.range-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+input[type="range"] {
+    flex: 1;
+}
+
+/* Buttons */
+.btn-retro {
+    width: 100%;
+    padding: 15px;
+    background: transparent;
+    border: 2px solid var(--accent-green);
+    color: var(--accent-green);
+    font-family: var(--font-stack);
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: 0.2s;
+    margin-top: 1rem;
+}
+
+.btn-retro:hover {
+    background: var(--accent-green);
+    color: black;
+}
+
+.btn-retro.danger {
+    border-color: var(--accent-red);
+    color: var(--accent-red);
+}
+.btn-retro.danger:hover {
+    background: var(--accent-red);
+    color: white;
+}
+
+/* Alerts & Footer */
+.alert-success {
+    border: 1px solid var(--accent-green);
+    background: rgba(0, 255, 65, 0.1);
+    color: var(--accent-green);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.error-msg {
+    color: var(--accent-red);
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+.help-text {
+    display: block;
+    font-size: 0.75rem;
+    color: #666;
+    margin-top: 4px;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    border-top: 1px solid #333;
+    font-size: 0.8rem;
+    color: #555;
+    margin-top: auto;
+}
+
+/* Django Form Styles (Paragraphs) */
+.retro-form p {
+    margin-bottom: 1.5rem;
+}

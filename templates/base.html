@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B.I.A. Internes Terminal</title>
+    <!-- CSS wird aus der App geladen -->
+    <link rel="stylesheet" href="{% static 'bia_forms/css/styles.css' %}">
+</head>
+<body>
+    
+    <div class="scanline"></div>
+
+    {% include 'partials/_header.html' %}
+
+    <main class="container">
+        <div class="content-wrapper">
+            {% block content %}
+            <!-- Inhalt kommt hier rein -->
+            {% endblock %}
+        </div>
+    </main>
+
+    {% include 'partials/_footer.html' %}
+
+</body>
+</html>

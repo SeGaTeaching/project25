@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="form-header">
+        {% if heading %}
+        <h2>{{ heading }}</h2>
+        {% else %}
+        <h2>Agenten Rekrutierung</h2>
+        <span class="badge">DJANGO FORMS API</span>
+        {% endif %}
+        
+    </div>
+    <p class="intro-text">Nutzen Sie das standardisierte Django Formular zur Bewerbererfassung. Validierung erfolgt serverseitig.</p>
+
+    {% if success_msg %}
+        <div class="alert-success">{{ success_msg }}</div>
+    {% endif %}
+
+    <!-- 
+        THEMA: Django Form API
+        Wir lassen Django das Formular rendern, haben aber weniger Kontrolle über das HTML 
+        (außer wir iterieren manuell).
+    -->
+    <form method="POST" class="retro-form">
+        {% csrf_token %}
+        
+        <table><!-- Einfachste Methode, aber nicht immer schönste: -->
+        {{ form }}
+        </table>
+
+        <button type="submit" class="btn-retro">BEWERBUNG ABSENDEN</button>
+    </form>
+{% endblock %}

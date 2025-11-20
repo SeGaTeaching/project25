@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="form-header">
+        <h2>Bestätigung Agenten Rekrutierung</h2>
+    </div>
+    <p class="intro-text">Ihre Anmeldung war erfolgreich und Sie sind mit folgenden Daten bei uns registriert</p>
+
+    <div class="agent-data">
+        <p>Name: {{ agent.full_name }}</p>
+        <p>E-Mail: {{ agent.email }}</p>
+        <p>Code-Name: {{ agent.get_codename_display }}</p>
+        <p>Erfahrung in Jahren: {{ agent.years_of_experience }}</p>
+        <p>Skills: {{ agent.special_skills }}</p>
+    </div>
+{% endblock %}

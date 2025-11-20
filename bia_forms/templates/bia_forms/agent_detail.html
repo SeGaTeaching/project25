@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-header">
+    <h2>Personalakte: {{ agent.get_codename_display|upper }}</h2>
+    <span class="badge">CONFIDENTIAL</span>
+</div>
+
+<div class="retro-form">
+    
+    <div class="data-grid" style="display: grid; gap: 1.5rem;">
+        
+        <div class="data-row">
+            <label>Klarname</label>
+            <div style="color: var(--text-main); border-bottom: 1px dashed #444; padding-bottom: 5px;">
+                {{ agent.full_name }}
+            </div>
+        </div>
+
+        <div class="data-row">
+            <label>Kontakt-Frequenz</label>
+            <div style="color: var(--accent-green); font-family: monospace;">
+                {{ agent.email }}
+            </div>
+        </div>
+
+        <div class="data-row">
+            <label>Erfahrungsstufe</label>
+            <div>
+                {{ agent.years_of_experience }} Jahre im Feldeinsatz
+            </div>
+        </div>
+
+        <div class="data-row">
+            <label>Spezialfähigkeiten</label>
+            <div style="background: #000; padding: 10px; border: 1px solid #333; font-size: 0.9rem;">
+                {{ agent.special_skills|linebreaks }}
+            </div>
+        </div>
+
+        <div class="data-row">
+            <label>Status Gedächtnislöschung</label>
+            {% if agent.agrees_to_memory_wipe %}
+                <span style="color: var(--accent-green);">[ ZUGESTIMMT ]</span>
+            {% else %}
+                <span style="color: var(--accent-red);">[ ABGELEHNT - Sicherheitsrisiko ]</span>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <hr style="border-color: #333; margin: 2rem 0;">
+
+    <div style="display: flex; gap: 1rem;">
+        <a href="{% url 'bia_forms:agent-edit' agent.pk %}" class="btn-retro" style="text-decoration: none; text-align: center;">
+            DATEN EDITIEREN
+        </a>
+        
+        <a href="{% url 'bia_forms:agent-delete' agent.pk %}" class="btn-retro danger" style="text-decoration: none; text-align: center;">
+            AGENTEN ELIMINIEREN
+        </a>
+    </div>
+
+    <div style="margin-top: 1rem; text-align: center;">
+        <a href="{% url 'bia_forms:agent-list' %}" style="color: #666; font-size: 0.8rem; text-decoration: none;">
+            [ ZURÜCK ZUR ÜBERSICHT ]
+        </a>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+<header>
+    <div class="logo-area">
+        <h1>B.I.A.</h1>
+        <p>Bureau of Interstellar Anomalies</p>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="{% url 'bia_forms:signal-log' %}">1. Signal Log (HTML)</a></li>
+            <li><a href="{% url 'bia_forms:agent-recruit' %}">2. Rekrutierung (Form API)</a></li>
+            <li><a href="{% url 'bia_forms:agent-list' %}">3. Agenten (Form API)</a></li>
+            {% comment %} <li><a href="{% url 'bia_forms:artifact-create' %}">3. Artefakte (ModelForm)</a></li> {% endcomment %}
+        </ul>
+    </nav>
+</header>
