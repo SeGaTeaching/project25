@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for artifact in artifacts %}
+    <section class="retro-form">
+        
+        <h3>Objekt ID: {{ artifact.id }}</h3> 
+
+        <hr>
+
+        {% for key, value in artifact.items %}
+            <p>{{ key }}: {{ value }}</p>
+        {% endfor %}
+
+        <a href="{% url "bia_forms:artifact-edit" artifact.id %}">Bearbeiten</a>
+    </section>
+{% endfor %}
+
+{% endblock content %}

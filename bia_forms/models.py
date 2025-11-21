@@ -42,4 +42,24 @@ class Agent(models.Model):
 
     def __str__(self):
         return f"Agent {self.get_codename_display()} ({self.full_name})"
+    
+    
+# --- MODEL 3: Für ModelForm ---
+class Artifact(models.Model):
+    THREAT_LEVELS = [
+        ('low', 'Niedrig (Sicher)'),
+        ('medium', 'Mittel (Vorsicht geboten)'),
+        ('high', 'Hoch (Eindämmung erforderlich)'),
+        ('critical', 'Kritisch (Weltuntergangsszenario)'),
+    ]
+
+    name = models.CharField(max_length=100, verbose_name="Artefakt-Bezeichnung")
+    discovery_date = models.DateField(verbose_name="Funddatum")
+    origin_sector = models.CharField(max_length=50, verbose_name="Ursprungssektor")
+    threat_level = models.CharField(max_length=10, choices=THREAT_LEVELS, default='medium', verbose_name="Bedrohungsstufe")
+    is_radioactive = models.BooleanField(default=False, verbose_name="Strahlung aktiv?")
+    description = models.TextField(verbose_name="Beschreibung der Anomalie")
+
+    def __str__(self):
+        return f"{self.name} ({self.get_threat_level_display()})"
 

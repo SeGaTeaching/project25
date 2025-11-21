@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Bearbeite Objekt {{ artifact.id }}</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+
+    <button type="submit" class="btn-retro">Objekt {{artifact.id}} updaten</button>
+
+</form>
+
+{% endblock content %}

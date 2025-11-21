@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms.models import model_to_dict
-from .models import SignalLog, Agent
-from .forms import AgentRecruitmentForm
+from .models import SignalLog, Agent, Artifact
+from .forms import AgentRecruitmentForm, ArtifactModelForm
 
 # Create your views here.
 def signal_log_view(request):
@@ -158,5 +158,49 @@ def agent_delete_view(request, pk):
     
     # Sicherheitsabfrage Template
     return render(request, 'bia_forms/agent_confirm_delete.html', {'agent': agent})
+
+
+# --- VIEW 3: ModelForm ---
+def artifact_create_view(request):
+    success_msg = None
+    
+    if request.method == 'POST':
+        form = ArtifactModelForm(request.POST)
+        if form.is_valid():
+            print(f"HALLO, HIER IST DIE RÜCKGABE: {form.save()}")
+            success_msg = "Artefakt erfolgreich katalogisiert und weggesperrt"
+            form = ArtifactModelForm()
+    else:
+        form = ArtifactModelForm()
+    
+    return render(request, 'bia_forms/app3.html', {
+        'success_msg': success_msg,
+        'form': form
+    })
+    
+# --- Erklärung wie Django zu den einzelnen Daten in der Datenbank kommt ---
+def artifacts_list(request):
+    artifacts = Artifact.objects.values()
+    
+    return render(request, 'bia_forms/artifacts_list.html', {'artifacts': artifacts})
+
+# Edit Artefakt Objekte
+def artifact_edit(request, id):
+    artifact = get_object_or_404(Artifact, pk=id)
+    
+    if request.method == 'POST':
+        # Das sagt Django: "Nimm diese neuen Daten (request.POST) und überschreibe DIESES Objekt (artifact) damit"
+        form = ArtifactModelForm(request.POST, instance=artifact)
+        
+        if form.is_valid():
+            form.save()
+            return redirect('bia_forms:artifacts-list')
+    
+    form = ArtifactModelForm(instance=artifact)
+    
+    return render(request, 'bia_forms/artifact_edit.html', {
+        'form': form,
+        'artifact': artifact
+    })
   
         

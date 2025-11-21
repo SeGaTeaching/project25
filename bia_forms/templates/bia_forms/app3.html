@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="form-header">
+        <h2>Artefakt Katalogisierung</h2>
+        <span class="badge">MODEL FORM</span>
+    </div>
+    <p class="intro-text">Direkte Datenbank-Erfassung. Höchste Sicherheitsstufe erforderlich.</p>
+
+    {% if success_msg %}
+        <div class="alert-success">{{ success_msg }}</div>
+    {% endif %}
+
+    <!-- 
+        THEMA: Django ModelForm
+        Das Formular weiß, wie das Datenbank-Model aussieht.
+        Hier iterieren wir manuell über die Felder für mehr Styling-Kontrolle.
+    -->
+    <form method="POST" class="retro-form">
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                
+                {{ field }}
+                
+                {% if field.help_text %}
+                    <small class="help-text">{{ field.help_text }}</small>
+                {% endif %}
+                
+                {% for error in field.errors %}
+                    <div class="error-msg">{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        {% comment %} {{ form.as_p}} {% endcomment %}
+
+        <button type="submit" class="btn-retro danger">ARTEFAKT WEGSPERREN</button>
+    </form>
+{% endblock %}

@@ -1,4 +1,5 @@
 from django import forms
+from .models import Artifact
 
 # ---------------------------------------------------------
 # Beispiel 2: Django Form API (Kein Model dahinter)
@@ -50,3 +51,22 @@ class AgentRecruitmentForm(forms.Form):
         label="Zustimmung zur Gedächtnislöschung bei Kündigung",
         required=True
     )
+    
+
+# ---------------------------------------------------------
+# Beispiel 3: ModelForm
+# Thema: Artefakt Katalogisierung
+# ---------------------------------------------------------
+class ArtifactModelForm(forms.ModelForm):
+    class Meta:
+        model = Artifact
+        fields = '__all__'
+        widgets = {
+            'discovery_date': forms.DateInput(attrs={
+                'type': 'date'
+            }),
+            'description': forms.Textarea(attrs={
+                'rows': 4,
+                'placeholder': 'Beschreibe das Verhalten des Objekts...',
+            })
+        }
