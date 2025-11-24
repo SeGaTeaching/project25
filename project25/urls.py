@@ -26,4 +26,5 @@ urlpatterns = [
     path('models/', include('models_examples.urls')),
     path('weather/', include('weather.urls')),
     path('forms/', include('bia_forms.urls')),
+    path('accounts/', include('accounts.urls')),
 ]

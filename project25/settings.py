@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'models_relations',
     'weather',
     'bia_forms',
+    'accounts',
     
     # Default Apps
     'django.contrib.admin',
