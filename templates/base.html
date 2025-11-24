@@ -16,6 +16,11 @@
 
     <main class="container">
         <div class="content-wrapper">
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
             {% block content %}
             <!-- Inhalt kommt hier rein -->
             {% endblock %}

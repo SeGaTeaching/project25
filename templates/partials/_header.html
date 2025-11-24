@@ -5,10 +5,30 @@
     </div>
     <nav>
         <ul>
+            <li>
+                <span>🧑 Hallo {% if user.is_authenticated %}<a href="{% url 'accounts:profile' %}">{{ user.username }}</a>
+                {% else %}
+                Gast
+                {% endif %}
+                </li>
             <li><a href="{% url 'bia_forms:signal-log' %}">1. Signal Log (HTML)</a></li>
             <li><a href="{% url 'bia_forms:agent-recruit' %}">2. Rekrutierung (Form API)</a></li>
             <li><a href="{% url 'bia_forms:agent-list' %}">3. Agenten (Form API)</a></li>
             {% comment %} <li><a href="{% url 'bia_forms:artifact-create' %}">3. Artefakte (ModelForm)</a></li> {% endcomment %}
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'accounts:logout' %}">🚪 Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'accounts:login' %}">Anmelden</a></li>
+                <li><a href="{% url 'accounts:register' %}">Registrieren</a></li>
+            {% endif %}
+            {% if user.is_staff %}
+                <li><a href="/admin/">Admin-Area</a></li>
+            {% endif %}
+            
+            
+            
+            
+
         </ul>
     </nav>
 </header>

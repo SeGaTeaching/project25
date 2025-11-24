@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Mein Konto</h1>
+
+<p>Benutzername: {{ user.username }}</p>
+<p>Richtiger Name: {{ user.first_name }} {{ user.last_name }}</p>
+<p>Email: {{ user.email }}</p>
+<p>Erstellt am: {{ user.date_joined|date:"d.m.Y" }}</p>
+
+<a href="{% url 'accounts:logout' %}">Logout</a>
+{% endblock content %} 

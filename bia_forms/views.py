@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms.models import model_to_dict
+from django.contrib.auth.decorators import login_required
 from .models import SignalLog, Agent, Artifact
 from .forms import AgentRecruitmentForm, ArtifactModelForm
 
@@ -83,6 +84,8 @@ def agent_confirm_view(request, id):
     return render(request, 'bia_forms/agent_success.html', {'agent': agent})
 
 # --- LIST VIEW: Alle Agenten ---
+# @login_required(login_url='start:index')
+@login_required
 def agent_list_view(request):
     agents = Agent.objects.all().order_by('-years_of_experience')
     return render(request, 'bia_forms/agents_list.html', {'agents': agents})

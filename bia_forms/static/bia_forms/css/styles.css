@@ -224,3 +224,11 @@ footer {
 .retro-form p {
     margin-bottom: 1.5rem;
 }
+
+/* Validation Error */
+ul.errorlist {
+    font-weight: bold;
+    color: red;
+    font-size: 1.2em;
+    text-transform: uppercase;
+}
