@@ -1,0 +1,16 @@
+{% extends 'movies/base.html' %}
+
+{% block content %}
+<div class="form-container" style="text-align: center;">
+    <h2 style="color: var(--accent-color);">Film löschen?</h2>
+    <p>Bist du sicher, dass du <strong>"{{ movie.title }}"</strong> endgültig aus der Datenbank entfernen möchtest?</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <div style="display: flex; gap: 10px; justify-content: center; margin-top: 2rem;">
+            <a href="{% url 'movies:list' %}" class="btn btn-secondary">Abbrechen</a>
+            <button type="submit" class="btn btn-danger">Löschen bestätigen</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

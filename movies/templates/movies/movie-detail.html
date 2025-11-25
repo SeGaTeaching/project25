@@ -1,0 +1,91 @@
+{% extends 'movies/base.html' %}
+
+{% block content %}
+
+<div style="margin-bottom: 2rem;">
+    <a href="{% url 'movies:list' %}" class="btn btn-secondary">&larr; Zurück zur Übersicht</a>
+</div>
+
+<article class="movie-detail-container" style="background: var(--bg-card); border-radius: 8px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
+    
+    <!-- OBERER BEREICH: Split Screen Poster & Info -->
+    <div class="detail-top" style="display: flex; flex-wrap: wrap;">
+        
+        <!-- LINKS: Poster -->
+        <div class="detail-poster" style="flex: 1; min-width: 300px; max-width: 400px; background: #000;">
+            {% if movie.poster %}
+                <img src="{{ movie.poster.url }}" alt="{{ movie.title }}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            {% else %}
+                <div style="height: 100%; min-height: 400px; display: flex; align-items: center; justify-content: center; color: #666;">
+                    Kein Plakat vorhanden
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- RECHTS: Infos -->
+        <div class="detail-info" style="flex: 2; padding: 2rem; min-width: 300px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <h1 style="margin-top: 0; font-size: 2.5rem; color: var(--accent-color);">{{ movie.title }}</h1>
+                <span style="background: #333; padding: 5px 10px; border-radius: 4px; font-weight: bold;">{{ movie.year }}</span>
+            </div>
+
+            <div style="margin: 1.5rem 0; font-size: 1.1rem; color: #ccc;">
+                <p><strong>Regie:</strong> {{ movie.director }}</p>
+                <p><strong>Cast:</strong> {{ movie.lead_actor }}</p>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid #444; margin: 2rem 0;">
+
+            <h3>Handlung</h3>
+            <p style="line-height: 1.6; color: #bbb;">
+                {{ movie.description|default:"Keine Beschreibung verfügbar."|linebreaks }}
+            </p>
+
+            <div class="action-buttons" style="margin-top: 3rem; display: flex; gap: 1rem;">
+                <a href="{% url 'movies:edit' movie.pk %}" class="btn btn-primary" style="flex: 1;">Bearbeiten</a>
+                <a href="{% url 'movies:delete' movie.pk %}" class="btn btn-danger" style="flex: 1;">Löschen</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- UNTERER BEREICH: Video Player -->
+    <div class="detail-video" style="background: #111; padding: 2rem; border-top: 1px solid #333;">
+        <h3 style="margin-bottom: 1.5rem; border-left: 3px solid var(--accent-color); padding-left: 10px;">Trailer & Video</h3>
+
+        {% if movie.video_file %}
+            <!-- Eigener Upload (HTML5 Video Player) -->
+            <div style="max-width: 800px; margin: 0 auto;">
+                <video controls style="width: 100%; border-radius: 4px; box-shadow: 0 0 20px rgba(0,0,0,0.5);">
+                    <source src="{{ movie.video_file.url }}" type="video/mp4">
+                    Dein Browser unterstützt das Video-Tag nicht.
+                </video>
+                <p style="text-align: center; color: #666; margin-top: 0.5rem; font-size: 0.8rem;">Quelle: Eigener Upload</p>
+            </div>
+
+        {% elif movie.youtube_url %}
+            <!-- YouTube Embed (Responsive Iframe) -->
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 4px; box-shadow: 0 0 20px rgba(0,0,0,0.5);">
+                    <iframe 
+                        src="{{ movie.get_embed_url }}" 
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        referrerpolicy="strict-origin-when-cross-origin">
+                    </iframe>
+                </div>
+                <p style="text-align: center; color: #666; margin-top: 0.5rem; font-size: 0.8rem;">Quelle: YouTube</p>
+            </div>
+        
+        {% else %}
+            <div style="text-align: center; padding: 3rem; color: #555; border: 2px dashed #333; border-radius: 8px;">
+                <p>Kein Videomaterial hinterlegt.</p>
+                <a href="{% url 'movies:edit' movie.pk %}" style="color: var(--accent-color);">Jetzt Video hinzufügen</a>
+            </div>
+        {% endif %}
+    </div>
+
+</article>
+
+{% endblock %}

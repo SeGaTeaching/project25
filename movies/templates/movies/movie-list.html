@@ -1,0 +1,59 @@
+{% extends 'movies/base.html' %}
+
+{% block content %}
+    <h1>Meine Bibliothek <small style="font-size: 0.5em; color: #777;">(User: {{ request.user.username }})</small></h1>
+    
+    <div class="movie-grid">
+        {% for movie in movies %}
+        
+        <!-- Ganze Karte ist jetzt ein Link zur Detailansicht -->
+        <article class="movie-card">
+            
+            <!-- Link umschließt das Poster -->
+            <a href="{% url 'movies:detail' movie.pk %}" class="poster-frame" style="display:block;">
+                {% if movie.poster %}
+                    <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+                {% else %}
+                    <div class="no-poster">Kein Plakat</div>
+                {% endif %}
+                
+                <!-- Overlay Icon (Optional, für schöneren Effekt) -->
+                <div class="play-overlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s;">
+                    <span style="font-size: 3rem; color: white;">▶</span>
+                </div>
+            </a>
+            
+            <div class="card-content">
+                <!-- Titel linkt auch zur Detailansicht -->
+                <h3><a href="{% url 'movies:detail' movie.pk %}" style="text-decoration: none; color: inherit;">{{ movie.title }}</a> 
+                    <span style="color:var(--text-secondary); font-size:0.8em;">({{ movie.year }})</span>
+                </h3>
+                
+                <div class="meta-info">
+                    <div class="meta-row">
+                        <span>Regie:</span>
+                        <span>{{ movie.director }}</span>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <!-- Detail Button dazu -->
+                    <a href="{% url 'movies:detail' movie.pk %}" class="btn btn-primary btn-sm">Details</a>
+                    <a href="{% url 'movies:edit' movie.pk %}" class="btn btn-secondary btn-sm">Edit</a>
+                </div>
+            </div>
+        </article>
+        {% empty %}
+            <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; background: var(--bg-card); border-radius: 8px;">
+                <h3>Hier ist es noch leer.</h3>
+                <p>Du hast noch keine Filme in deiner persönlichen Sammlung.</p>
+                <a href="{% url 'movies:create' %}" class="btn btn-primary" style="margin-top: 1rem;">Ersten Film anlegen</a>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Kleines CSS für den Hover-Effekt -->
+    <style>
+        .poster-frame:hover .play-overlay { opacity: 1 !important; }
+    </style>
+{% endblock %}

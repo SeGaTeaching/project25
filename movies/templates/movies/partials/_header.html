@@ -1,0 +1,35 @@
+<header>
+    <div class="brand">StreamDB</div>
+    <nav>
+        <ul>
+            <!-- Immer sichtbar -->
+            <li><a href="{% url 'movies:list' %}">Alle Filme</a></li>
+
+            {% if user.is_authenticated %}
+                <!-- Nur für eingeloggte User -->
+                
+                {% if user.is_staff %}
+                    <!-- Nur für Staff / Admins -->
+                    <li><a href="/admin/" class="nav-highlight">Admin</a></li>
+                {% endif %}
+
+                <li><a href="{% url 'movies:create' %}" class="btn btn-primary">Film hinzufügen +</a></li>
+                
+                <li class="user-info">Hi, {{ user.username }}</li>
+                
+                <!-- KORREKTER WEG für Django 5+: Logout via POST Formular -->
+                <li>
+                    <form action="{% url 'accounts:logout' %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-secondary btn-sm" style="cursor: pointer;">Logout</button>
+                    </form>
+                </li>
+
+            {% else %}
+                <!-- Nur für GÄSTE (nicht eingeloggt) -->
+                <li><a href="{% url 'accounts:login' %}">Login</a></li>
+                <li><a href="{% url 'accounts:register' %}">Registrieren</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>

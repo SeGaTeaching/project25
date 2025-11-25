@@ -1,0 +1,28 @@
+{% extends 'movies/base.html' %}
+
+{% block content %}
+<div class="form-container">
+    <h2>{{ title }}</h2>
+    
+    <!-- WICHTIG: enctype="multipart/form-data" ist ZWINGEND für Datei-Uploads -->
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Loop über Formularfelder für Kontrolle über das Styling -->
+        {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <div style="color: var(--accent-color); font-size: 0.8rem; margin-top: 5px;">
+                    {{ field.errors }}
+                </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Speichern</button>
+        <a href="{% url 'movies:list' %}" style="display:block; text-align:center; margin-top:1rem; color: #888; text-decoration:none;">Abbrechen</a>
+    </form>
+</div>
+{% endblock %}

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'weather',
     'bia_forms',
     'accounts',
+    'movies',
     
     # Default Apps
     'django.contrib.admin',
@@ -126,6 +128,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+# HIER wird der projektweite static-Ordner hinzugefügt
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+STATIC_ROOT = Path(__file__).resolve().parent.parent.parent/'all_staticfiles'
+
+# Mediafiles settings
+# Physical place of the media files
+MEDIA_ROOT = BASE_DIR / 'mediafiles' # oder os.path.join(BASE_DIR, 'mediafiles')
+
+# 'Fake' URL of the Media
+MEDIA_URL = '/uwe-ochsenknecht/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

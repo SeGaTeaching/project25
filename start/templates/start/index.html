@@ -30,6 +30,7 @@
 <body>
     <div class="container">
         <h1>Heute ist<br>{{ today|date:"l, d.m.Y"}}</h1>
+        <p>User: {{ request.user }}</p>
     </div>
 </body>
 </html>
