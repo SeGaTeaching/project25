@@ -163,7 +163,6 @@ pymysql.install_as_MySQLdb()
 #     }
 # }
 
-
 #-------------------------------
 # POSTGRESQL EXAMPLE
 #-------------------------------
@@ -183,7 +182,6 @@ pymysql.install_as_MySQLdb()
 # DATABASES = {
 #     'default': env.db(),
 # }
-
 
 
 # Password validation
@@ -240,6 +238,7 @@ MEDIA_URL = '/uwe-ochsenknecht/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 # -------------------
 # Session Management
 # -------------------
@@ -248,7 +247,8 @@ SESSION_COOKIE_AGE = 1209600  # Two weeks in seconds
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True # Session expires when the browser is closed
 
 
+# ----------------------------
 # Sonstige Umgebungsvariablen
-# ---------------------------
+# ----------------------------
 # WEATHER_API = os.environ.get('WEATHER_API')
 WEATHER_API = env('WEATHER_API')
