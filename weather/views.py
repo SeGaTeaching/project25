@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.conf import settings
 import requests
 
 # Create your views here.
 def index(request):
     
-    API_KEY = 'e840120397fd69790c9ff22e5f354b0f'
+    API_KEY = settings.WEATHER_API
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=' + API_KEY
     
     if 'city' in request.GET:

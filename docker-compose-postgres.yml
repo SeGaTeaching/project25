@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_db_container
+    restart: always
+    environment:
+      POSTGRES_DB: 'nov_postgres_db'
+      POSTGRES_USER: 'nov_postgres_user'
+      POSTGRES_PASSWORD: 'user_password_sehr_sicher'
+    ports:
+      - "5433:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+volumes:
+  pg_data:

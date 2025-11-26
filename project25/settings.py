@@ -12,19 +12,48 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+import pymysql
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# ------------------------------
+# Umgebungsvariblen Management
+# ------------------------------
+
+# Methode 1 mit Python Dotenv
+# -----------------------------
+from dotenv import load_dotenv
+# Lädt die Variablen aus der .env-Datei in die Umgebung 
+load_dotenv() 
+
+# Methode 2 mit Django Environ
+# -----------------------------
+import environ
+# Initialisiere environ
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+# Lese die .env-Datei (BASE_DIR muss korrekt definiert sein)
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--kdsl4gr_@t3)!6!ajg0be56ov=0kj=!wq7esdv96@wxf=m+#7'
+# Unsicher weil in Code
+# SECRET_KEY = 'django-insecure--kdsl4gr_@t3)!6!ajg0be56ov=0kj=!wq7esdv96@wxf=m+#7'
+
+# Methode 1 mit Dotenv
+# SECRET_KEY = os.environ.get('SECRET_KEY')
+
+# Methode 2 mit Django Environ
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -85,12 +114,76 @@ WSGI_APPLICATION = 'project25.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# Default SQLite3 Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# MySQL Database Settings
+pymysql.install_as_MySQLdb()
+
+# Unsicher Variante, da Daten sichtbar im Code stehen
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'django_nov_25_db',
+#         'USER': 'django_nov_25_user',
+#         'PASSWORD': 'user_password_sehr_sicher',
+#         'HOST': '127.0.0.1',
+#         'PORT': '3307',
+#     }
+# }
+
+# Bessere Variante mit Umgebungsvariablen
+#------------------------------------------
+# Variante 1 (allgemein für Python) - Dotenv
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': os.environ.get('DB_NAME'),
+#         'USER': os.environ.get('DB_USER'),
+#         'PASSWORD': os.environ.get('DB_PASSWORD'),
+#         'HOST': os.environ.get('DB_HOST'),
+#         'PORT': os.environ.get('DB_PORT'),
+#     }
+# }
+
+# Variante 2 (speziell für Django) - Django Environ
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': env('DB_NAME'),
+#         'USER': env('DB_USER'),
+#         'PASSWORD': env('DB_PASSWORD'),
+#         'HOST': env('DB_HOST'),
+#         'PORT': env('DB_PORT'),
+#     }
+# }
+
+
+#-------------------------------
+# POSTGRESQL EXAMPLE
+#-------------------------------
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'nov_postgres_db',
+#         'USER': 'nov_postgres_user',
+#         'PASSWORD': 'user_password_sehr_sicher',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5433',
+#     }
+# }
+
+# Variante 2 sogar noch besser 
+# Die Datenbank-URL wird automatisch in die korrekte Dictionary-Struktur geparst
+# DATABASES = {
+#     'default': env.db(),
+# }
+
 
 
 # Password validation
@@ -146,3 +239,16 @@ MEDIA_URL = '/uwe-ochsenknecht/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# -------------------
+# Session Management
+# -------------------
+# Session settings
+SESSION_COOKIE_AGE = 1209600  # Two weeks in seconds
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True # Session expires when the browser is closed
+
+
+# Sonstige Umgebungsvariablen
+# ---------------------------
+# WEATHER_API = os.environ.get('WEATHER_API')
+WEATHER_API = env('WEATHER_API')

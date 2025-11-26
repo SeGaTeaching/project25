@@ -1,0 +1,18 @@
+services:
+  db:
+    image: mysql:8.0  # Wir verwenden das offizielle MySQL-Image in Version 8.0
+    container_name: mysql_db_container
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root_password_sehr_sicher'
+      MYSQL_DATABASE: 'django_nov_25_db'
+      MYSQL_USER: 'django_nov_25_user'
+      MYSQL_PASSWORD: 'user_password_sehr_sicher'
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
