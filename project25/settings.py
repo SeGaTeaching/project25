@@ -57,11 +57,21 @@ DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',  # <--- Muss hier stehen
+        # 'rest_framework.authentication.SessionAuthentication', # Optional für Browser-Login
+    ],
+    # ... andere Einstellungen
+}
 
 # Application definition
 
 INSTALLED_APPS = [
     # Custom Apps
+    'rest_framework',
+    'rest_framework.authtoken',
+    'api',
     'start',
     'wednesday',
     'get_examples',

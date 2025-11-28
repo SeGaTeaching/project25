@@ -32,6 +32,7 @@ urlpatterns = [
     path('forms/', include('bia_forms.urls')),
     path('accounts/', include('accounts.urls')),
     path('movies/', include('movies.urls')),
+    path('api/', include('api.urls')),
 ]
 
 if settings.DEBUG:
