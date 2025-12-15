@@ -53,9 +53,11 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+if 'REACT_APP_URL' in os.environ:
+    ALLOWED_HOSTS.append(env('REACT_APP_URL'))
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -285,9 +287,3 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]
-
-# Später fügen wir hier die Netlify-URL hinzu, z.B. "https://mein-super-projekt.netlify.app"
-# Du kannst auch eine Umgebungsvariable dafür verwenden.
-REACT_APP_URL = env('REACT_APP_URL')
-if REACT_APP_URL:
-    CORS_ALLOWED_ORIGINS.append(REACT_APP_URL)
