@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
-import pymysql
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -69,8 +68,10 @@ REST_FRAMEWORK = {
 
 INSTALLED_APPS = [
     # Custom Apps
+    'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
+    'employee',
     'api',
     'start',
     'wednesday',
@@ -92,6 +93,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -133,7 +135,7 @@ DATABASES = {
 }
 
 # MySQL Database Settings
-pymysql.install_as_MySQLdb()
+#pymysql.install_as_MySQLdb()
 
 # Unsicher Variante, da Daten sichtbar im Code stehen
 # DATABASES = {
@@ -262,3 +264,10 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True # Session expires when the browser is clo
 # ----------------------------
 # WEATHER_API = os.environ.get('WEATHER_API')
 WEATHER_API = env('WEATHER_API')
+
+
+# Für die lokale Entwicklung erlauben wir den React Dev-Server 
+CORS_ALLOWED_ORIGINS = [ 
+    "http://localhost:5173", 
+    "http://127.0.0.1:5173", 
+]

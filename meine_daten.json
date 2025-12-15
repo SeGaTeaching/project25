@@ -1,0 +1,82 @@
+[
+{
+  "model": "employee.employee",
+  "pk": 1,
+  "fields": {
+    "name": "Ursula",
+    "role": "Utility Consultant",
+    "is_active": true,
+    "image_url": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200"
+  }
+},
+{
+  "model": "employee.employee",
+  "pk": 2,
+  "fields": {
+    "name": "Bob",
+    "role": "Scrum Master",
+    "is_active": true,
+    "image_url": "https://i.pravatar.cc/150?u=Bob"
+  }
+},
+{
+  "model": "employee.employee",
+  "pk": 3,
+  "fields": {
+    "name": "Walter",
+    "role": "CEO",
+    "is_active": true,
+    "image_url": "https://i.pravatar.cc/150?u=Walter"
+  }
+},
+{
+  "model": "employee.employee",
+  "pk": 4,
+  "fields": {
+    "name": "Jonathan",
+    "role": "Backend Dev",
+    "is_active": true,
+    "image_url": "https://i.pravatar.cc/150?u=Jonathan"
+  }
+},
+{
+  "model": "employee.employee",
+  "pk": 5,
+  "fields": {
+    "name": "Helmut",
+    "role": "Frontend-Dev",
+    "is_active": true,
+    "image_url": "https://i.pravatar.cc/150?u=Helmut"
+  }
+},
+{
+  "model": "employee.employee",
+  "pk": 6,
+  "fields": {
+    "name": "Jane",
+    "role": "Product Owner",
+    "is_active": true,
+    "image_url": "https://i.pravatar.cc/150?u=John"
+  }
+},
+{
+  "model": "employee.employee",
+  "pk": 7,
+  "fields": {
+    "name": "Eric",
+    "role": "Drupal Dev",
+    "is_active": true,
+    "image_url": "https://i.pravatar.cc/150?u=Eric"
+  }
+},
+{
+  "model": "employee.employee",
+  "pk": 8,
+  "fields": {
+    "name": "Gregor",
+    "role": "Chief Hussler",
+    "is_active": true,
+    "image_url": "https://i.pravatar.cc/150?u=Gregor"
+  }
+}
+]
