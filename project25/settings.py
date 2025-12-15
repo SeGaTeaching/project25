@@ -65,12 +65,17 @@ if 'REACT_APP_URL' in os.environ:
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',  # <--- Muss hier stehen
-        # 'rest_framework.authentication.SessionAuthentication', # Optional für Browser-Login
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
     ],
-    # ... andere Einstellungen
+    # ... andere Einstellungen ...
 }
+
+# Füge die Browsable API nur hinzu, wenn wir im Debug-Modus sind
+if DEBUG:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'].append(
+        'rest_framework.renderers.BrowsableAPIRenderer'
+    )
 
 # Application definition
 
@@ -135,21 +140,22 @@ WSGI_APPLICATION = 'project25.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# Default SQLite3 Database
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-DATABASES = {
-    'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',
-        conn_max_age=600,
-        ssl_require=True if 'RENDER' in os.environ else False # SSL für Render DB erzwingen
-    )
-}
+if DEBUG:
+#Default SQLite3 Database
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    DATABASES = {
+        'default': dj_database_url.config(
+            default='sqlite:///db.sqlite3',
+            conn_max_age=600,
+            ssl_require=True if 'RENDER' in os.environ else False # SSL für Render DB erzwingen
+        )
+    }
 
 # MySQL Database Settings
 #pymysql.install_as_MySQLdb()
