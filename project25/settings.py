@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # -----------------------------
 from dotenv import load_dotenv
 # Lädt die Variablen aus der .env-Datei in die Umgebung 
-load_dotenv() 
+# load_dotenv() 
 
 # Methode 2 mit Django Environ
 # -----------------------------
@@ -54,7 +55,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -95,6 +96,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -127,11 +129,19 @@ WSGI_APPLICATION = 'project25.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 # Default SQLite3 Database
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='sqlite:///db.sqlite3',
+        conn_max_age=600,
+        ssl_require=True if 'RENDER' in os.environ else False # SSL für Render DB erzwingen
+    )
 }
 
 # MySQL Database Settings
@@ -236,7 +246,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-STATIC_ROOT = Path(__file__).resolve().parent.parent.parent/'all_staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Konfiguration für Whitenoise 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Mediafiles settings
 # Physical place of the media files
@@ -266,8 +279,15 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True # Session expires when the browser is clo
 WEATHER_API = env('WEATHER_API')
 
 
-# Für die lokale Entwicklung erlauben wir den React Dev-Server 
-CORS_ALLOWED_ORIGINS = [ 
-    "http://localhost:5173", 
-    "http://127.0.0.1:5173", 
+# Die URL deines React-Frontends (wird später von Netlify vergeben)
+# und die URL deines Backends zu Entwicklungszwecken
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
 ]
+
+# Später fügen wir hier die Netlify-URL hinzu, z.B. "https://mein-super-projekt.netlify.app"
+# Du kannst auch eine Umgebungsvariable dafür verwenden.
+REACT_APP_URL = env('REACT_APP_URL')
+if REACT_APP_URL:
+    CORS_ALLOWED_ORIGINS.append(REACT_APP_URL)
