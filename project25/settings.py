@@ -292,3 +292,5 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]
+if 'REACT_APP_URL' in os.environ:
+    CORS_ALLOWED_ORIGINS.append(env('REACT_APP_URL'))
